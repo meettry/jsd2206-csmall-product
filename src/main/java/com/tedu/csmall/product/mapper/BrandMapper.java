@@ -1,9 +1,7 @@
 package com.tedu.csmall.product.mapper;
 
 import com.tedu.csmall.product.pojo.entity.Brand;
-import com.tedu.csmall.product.pojo.entity.Brand;
 import com.tedu.csmall.product.pojo.vo.BrandListItemVO;
-import com.tedu.csmall.product.pojo.vo.AttributeTemplateStandardVO;
 import com.tedu.csmall.product.pojo.vo.BrandStandardVO;
 
 import java.util.List;

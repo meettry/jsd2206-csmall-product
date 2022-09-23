@@ -9,9 +9,9 @@
         VALUES (#{name},#{pinyin}, #{logo}, #{description}, #{keywords}, #{sort}, #{sales}, #{productCount}, #{commentCount}, #{positiveCommentCount}, #{enable})
     </insert>
 
-    <!--int insertBatch(List<Brand> Brands);-->
+    <!--int insertBatch(List<Brand> brands);-->
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
-        insert into pms_brand(( name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable)) values
+        insert into pms_brand( name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable) values
         <foreach collection="list" item="brand" separator=",">
             (#{brand.name},#{brand.pinyin}, #{brand.logo}, #{brand.description}, #{brand.keywords}, #{brand.sort}, #{brand.sales}, #{brand.productCount}, #{brand.commentCount}, #{brand.positiveCommentCount}, #{brand.enable})
         </foreach>
@@ -33,7 +33,7 @@
         )
     </delete>
 
-    <!--int updateById(Brand Brand);-->
+    <!--int updateById(Brand brand);-->
     <update id="updateById">
         update pms_brand
         <set>
@@ -46,6 +46,33 @@
             <if test="sort != null">
                 sort=#{sort},
             </if>
+            <if test="pinyin != null">
+                pinyin=#{pinyin},
+            </if>
+            <if test="logo != null">
+                logo=#{logo},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="keywords != null">
+                keywords=#{keywords},
+            </if>
+            <if test="sales != null">
+                sales=#{sales},
+            </if>
+            <if test="productCount != null">
+                product_count=#{productCount},
+            </if>
+            <if test="commentCount != null">
+                comment_count=#{commentCount},
+            </if>
+            <if test="positiveCommentCount != null">
+                positive_comment_count=#{positiveCommentCount},
+            </if>
+            <if test="enable != null">
+                enable=#{enable}
+            </if>
         </set>
         where id=#{id}
     </update>
@@ -55,14 +82,9 @@
         select count(*)
         from pms_brand
     </select>
-    
-    
-    
-    
-    
-    
+
     <!--BrandStandardVO getStandardById(Long Id);-->
-    <select id="getStandardById" resultMap="getStandardById">
+    <select id="getStandardById" resultMap="StandardResultMap">
         select
         <include refid="StandardQueryFields"></include>
         from pms_brand where id=#{id}
@@ -72,7 +94,24 @@
         id, name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable
     </sql>
     
-    <resultMap id="getStandardById" type="BrandStandardVO">
+    <resultMap id="StandardResultMap" type="BrandStandardVO">
+        <result property="productCount" column="product_count"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="positiveCommentCount" column="positive_comment_count"/>
+    </resultMap>
+
+    <!--List<BrandListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        select <include refid="ListQueryFields"></include>
+        from pms_brand
+        group by id desc
+    </select>
+
+    <sql id="ListQueryFields">
+        id, name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable
+    </sql>
+
+    <resultMap id="ListResultMap" type="BrandListItemVO">
         <result property="productCount" column="product_count"/>
         <result property="commentCount" column="comment_count"/>
         <result property="positiveCommentCount" column="positive_comment_count"/>

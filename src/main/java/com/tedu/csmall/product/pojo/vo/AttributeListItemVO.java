@@ -1,15 +1,15 @@
-package com.tedu.csmall.product.pojo.entity;
+package com.tedu.csmall.product.pojo.vo;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 /**
  * @author Meettry
- * @date 2022/9/22 16:07
+ * @date 2022/9/23 20:30
  */
 @Data
-public class Attribute {
+public class AttributeListItemVO implements Serializable {
     /**
      * 记录id
      */
@@ -36,10 +36,6 @@ public class Attribute {
     private Integer sort;
 
     /**
-     * 输入类型，0=手动录入，1=单选，2=多选，3=单选（下拉列表），4=多选（下拉列表）
-     */
-    private Integer inputType;
-    /**
      * 属性类型，1=销售属性，0=非销售属性
      */
     private Integer type;
@@ -52,20 +48,10 @@ public class Attribute {
     /**
      * 计量单位
      */
-    private String util;
+    private String unit;
 
     /**
      * 是否允许自定义，1=允许，0=禁止
      */
     private Integer isAllowCustomize;
-
-    /**
-     * 数据创建时间
-     */
-    private LocalDateTime gmtCreate;
-
-    /**
-     * 数据最后修改时间
-     */
-    private LocalDateTime gmtModified;
 }

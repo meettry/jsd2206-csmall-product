@@ -6,9 +6,9 @@
     <!-- int insert(Album album); -->
     <insert id="insert">
         INSERT INTO pms_Attribute (
-            templete_id,name, description,type ,sort,input_type,value_list,util,sort,is_allow_customize
+            template_id, name, description, type, input_type, value_list, unit, sort, is_allow_customize
         ) VALUES (
-            #{templeteId},#{name}, #{description},#{type}, #{sort},#{inputType},#{valueList},#{util},#{sort},#{isAllowCustomize}
+            #{templateId},#{name}, #{description},#{type},#{inputType},#{valueList},#{util},#{sort},#{isAllowCustomize}
         )
     </insert>
 

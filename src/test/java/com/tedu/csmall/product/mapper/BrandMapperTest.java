@@ -18,77 +18,96 @@ import java.util.List;
 public class BrandMapperTest {
     @Autowired
     private BrandMapper mapper;
+
     @Test
-    public void testInsert(){
-        Brand Brand = new Brand();
-        Brand.setName("测试相册000");
-        Brand.setDescription("测试简介000");
-        Brand.setSort(99);//取值必须是[0,255]
-        log.trace("插入数据的参数为:"+Brand);
-        int rows = mapper.insert(Brand);
+    public void testInsert() {
+        Brand brand = new Brand();
+        brand.setName("测试名称0");
+        brand.setPinyin("测试拼音0");
+        brand.setLogo("测试logo0");
+        brand.setDescription("测试详情0");
+        brand.setKeywords("测试关键词0");
+        brand.setSort(0);
+        brand.setSales(100);
+        brand.setProductCount(100);
+        brand.setCommentCount(100);
+        brand.setPositiveCommentCount(100);
+        log.trace("插入数据的参数为:" + brand);
+        int rows = mapper.insert(brand);
         log.info("插入数据完成，受影响的行数=" + rows);
     }
 
     @Test
-    public void testInsertBatch(){
-        List<Brand> list=new ArrayList<>();
-        for (int i =0;i<=5;i++) {
-            Brand Brand = new Brand();
-            Brand.setName("测试"+i);
-            Brand.setDescription("测试简介"+i);
-            Brand.setSort(i);//取值必须是[0,255]
-            list.add(Brand);
+    public void testInsertBatch() {
+        List<Brand> list = new ArrayList<>();
+        for (int i = 0; i <= 5; i++) {
+            Brand brand = new Brand();
+            brand.setName("测试名称0" + i);
+            brand.setPinyin("测试拼音0" + i);
+            brand.setLogo("测试logo0" + i);
+            brand.setDescription("测试详情0" + i);
+            brand.setKeywords("测试关键词0" + i);
+            brand.setSort(0 + i);
+            brand.setSales(100 + i);
+            brand.setProductCount(100 + i);
+            brand.setCommentCount(100 + i);
+            brand.setPositiveCommentCount(100 + i);
+            list.add(brand);
         }
-        log.trace("插入数据的参数为:"+list);
+        log.trace("插入数据的参数为:" + list);
         int rows = mapper.insertBatch(list);
-        log.info("插入数据完成，受影响的行数="+rows);
+        log.info("插入数据完成，受影响的行数=" + rows);
     }
 
-/*
+
     @Test
-    void testDeleteById(){
+    void testDeleteById() {
         int rows = mapper.deleteById(1L);
-        log.info("删除成功,受影响行数"+rows);
+        log.info("删除成功,受影响行数" + rows);
     }
 
     @Test
-    void testDeleteByIds(){
-        Long[] array = {2L,3L};
+    void testDeleteByIds() {
+        Long[] array = {2L, 3L};
         int rows = mapper.deleteByIds(array);
-        log.info("删除成功,受影响行数"+rows);
+        log.info("删除成功,受影响行数" + rows);
     }
 
     @Test
-    void TestUpdateById(){
-        Brand Brand = new Brand();
-        Brand.setId(5L);
-        Brand.setName("很新的相册名称");
-        Brand.setDescription("很新的相册简");
-        Brand.setSort(199);
-        int rows = mapper.updateById(Brand);
-        log.info("删除成功,受影响行数"+rows);
+    void TestUpdateById() {
+        Brand brand = new Brand();
+        brand.setName("测试名称0" + 7);
+        brand.setPinyin("测试拼音0" + 7);
+        brand.setLogo("测试logo0" + 7);
+        brand.setDescription("测试详情0" + 7);
+        brand.setKeywords("测试关键词0" + 7);
+        brand.setSort(0 + 7);
+        brand.setSales(100 + 7);
+        brand.setProductCount(100 + 7);
+        brand.setCommentCount(100 + 7);
+        brand.setPositiveCommentCount(100 + 7);
+        int rows = mapper.updateById(brand);
+        log.info("删除成功,受影响行数" + rows);
     }
 
     @Test
-    void testCount(){
+    void testCount() {
         int count = mapper.count();
-        log.info("统计成功,该表共有"+count+"行");
-
+        log.info("统计成功,该表共有" + count + "行");
     }
 
     @Test
-    void testGetStandardById(){
-        long id=4L;
+    void testGetStandardById() {
+        long id = 4L;
         //检验结果用Object
-        Object result =  mapper.getStandardById(id);
-        log.trace("查询到的结果为"+result);
+        Object result = mapper.getStandardById(id);
+        log.trace("查询到的结果为" + result);
     }
 
     @Test
-    void testList(){
+    void testList() {
         Object result = mapper.list();
-        log.trace("查询到的结果为"+result);
+        log.trace("查询到的结果为" + result);
     }
 
- */
 }
