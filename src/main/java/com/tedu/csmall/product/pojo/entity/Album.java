@@ -1,15 +1,16 @@
 package com.tedu.csmall.product.pojo.entity;
 
-import lombok.*;
+import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-@AllArgsConstructor
-@NoArgsConstructor
+/**
+ *
+ * @author  Meettry
+ * @date  2022/9/22 11:26
+ */
 @Data
-public class Album implements Serializable {
+public class Album {
     /*id*/
     private Long id ;
     /*name*/
