@@ -3,16 +3,14 @@ package com.tedu.csmall.product.pojo.vo;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
- * 相册的标准VO类
- *
+ * 属性模板标准VO类
  * @author Meettry
- * @date 2022/9/23 9:03
+ * @date 2022/9/23 9:27
  */
 @Data
-public class AlbumStandardVO implements Serializable {
+public class AttributeTemplateStandardVO implements Serializable {
 
     /**
      * 记录id
@@ -20,18 +18,22 @@ public class AlbumStandardVO implements Serializable {
     private Long id;
 
     /**
-     * 相册名称
+     * 属性模板名称
      */
     private String name;
 
     /**
-     * 相册简介
+     * 属性模板名称的拼音
      */
-    private String description;
+    private String pinyin;
+
+    /**
+     * 关键词列表
+     */
+    private String keywords;
 
     /**
      * 自定义排序序号
      */
     private Integer sort;
-
 }

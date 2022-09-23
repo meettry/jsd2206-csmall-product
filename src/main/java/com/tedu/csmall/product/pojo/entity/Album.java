@@ -11,16 +11,33 @@ import java.time.LocalDateTime;
  */
 @Data
 public class Album {
-    /*id*/
-    private Long id ;
-    /*name*/
+    /**
+     * 记录id
+     */
+    private Long id;
+
+    /**
+     * 相册名称
+     */
     private String name;
-    /*description*/
+
+    /**
+     * 相册简介
+     */
     private String description;
-    /*sort*/
+
+    /**
+     * 自定义排序序号
+     */
     private Integer sort;
-    /*gmt_create*/
-    private LocalDateTime getCreate;
-    /*gmt_modified*/
+
+    /**
+     * 数据创建时间
+     */
+    private LocalDateTime gmtCreate;
+
+    /**
+     * 数据最后修改时间
+     */
     private LocalDateTime gmtModified;
 }

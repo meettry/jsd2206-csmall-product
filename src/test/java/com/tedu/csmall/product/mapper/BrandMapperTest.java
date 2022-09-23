@@ -1,9 +1,6 @@
 package com.tedu.csmall.product.mapper;
 
-import com.tedu.csmall.product.mapper.AlbumMapper;
-import com.tedu.csmall.product.pojo.entity.Album;
-import com.tedu.csmall.product.pojo.vo.AlbumListItemVO;
-import com.tedu.csmall.product.pojo.vo.AlbumStandardVO;
+import com.tedu.csmall.product.pojo.entity.Brand;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,43 +11,40 @@ import java.util.List;
 
 /**
  * @author Meettry
- * @date 2022/9/22 14:11
+ * @date 2022/9/23 10:24
  */
-@SpringBootTest
 @Slf4j
-public class AlbumMapperTests {
-
-    @Autowired()
-    private AlbumMapper mapper;
-
-
+@SpringBootTest
+public class BrandMapperTest {
+    @Autowired
+    private BrandMapper mapper;
     @Test
     public void testInsert(){
-        Album album = new Album();
-        album.setName("测试相册000");
-        album.setDescription("测试简介000");
-        album.setSort(99);//取值必须是[0,255]
-        log.trace("插入数据的参数为:"+album);
-        int rows = mapper.insert(album);
+        Brand Brand = new Brand();
+        Brand.setName("测试相册000");
+        Brand.setDescription("测试简介000");
+        Brand.setSort(99);//取值必须是[0,255]
+        log.trace("插入数据的参数为:"+Brand);
+        int rows = mapper.insert(Brand);
         log.info("插入数据完成，受影响的行数=" + rows);
     }
 
     @Test
     public void testInsertBatch(){
-        List<Album> list=new ArrayList<>();
+        List<Brand> list=new ArrayList<>();
         for (int i =0;i<=5;i++) {
-            Album album = new Album();
-            album.setName("测试"+i);
-            album.setDescription("测试简介"+i);
-            album.setSort(i);//取值必须是[0,255]
-            list.add(album);
+            Brand Brand = new Brand();
+            Brand.setName("测试"+i);
+            Brand.setDescription("测试简介"+i);
+            Brand.setSort(i);//取值必须是[0,255]
+            list.add(Brand);
         }
         log.trace("插入数据的参数为:"+list);
         int rows = mapper.insertBatch(list);
         log.info("插入数据完成，受影响的行数="+rows);
     }
 
-
+/*
     @Test
     void testDeleteById(){
         int rows = mapper.deleteById(1L);
@@ -66,12 +60,12 @@ public class AlbumMapperTests {
 
     @Test
     void TestUpdateById(){
-        Album album = new Album();
-        album.setId(5L);
-        album.setName("很新的相册名称");
-        album.setDescription("很新的相册简");
-        album.setSort(199);
-        int rows = mapper.updateById(album);
+        Brand Brand = new Brand();
+        Brand.setId(5L);
+        Brand.setName("很新的相册名称");
+        Brand.setDescription("很新的相册简");
+        Brand.setSort(199);
+        int rows = mapper.updateById(Brand);
         log.info("删除成功,受影响行数"+rows);
     }
 
@@ -96,5 +90,5 @@ public class AlbumMapperTests {
         log.trace("查询到的结果为"+result);
     }
 
-
+ */
 }

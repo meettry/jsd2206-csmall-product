@@ -5,11 +5,83 @@
 <mapper namespace="com.tedu.csmall.product.mapper.AttributeTemplateMapper">
 
     <!--int insert(AttributeTemplate attributeTemplate);-->
-    <insert id="insert">
-        insert into pms_attribute_template(
-            name,pinyin,keywords,sort
-        ) values(
-            #{name},#{pinyin},#{keywords},#{sort}
-        )
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into pms_attribute_template(name, pinyin, keywords, sort)
+        values (#{name}, #{pinyin}, #{keywords}, #{sort})
     </insert>
+
+    <!--int insertBatch(List<AttributeTemplate> attributeTemplates);-->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        insert into pms_attribute_template( name, pinyin, keywords, sort) values
+        <foreach collection="list" item="attributeTemplate" separator=",">
+            (#{attributeTemplate.name},#{attributeTemplate.pinyin},#{attributeTemplate.keywords},#{attributeTemplate.sort})
+        </foreach>
+    </insert>
+
+    <!--int deleteById(Long id);-->
+    <delete id="deleteById">
+        delete from pms_attribute_template where id=#{id}
+    </delete>
+
+    <!--int deleteByIds(Long[] ids);-->
+    <delete id="deleteByIds">
+        delete from pms_attribute_template where id in (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <!--int updateById(AttributeTemplate attributeTemplate);-->
+    <update id="updateById">
+        update pms_attribute_template
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="pinyin != null">
+                pinyin=#{pinyin},
+            </if>
+            <if test="keywords != null">
+                keywords=#{keywords},
+            </if>
+            <if test="sort != null">
+                sort=#{sort}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--int count();-->
+    <select id="count" resultType="int">
+        select count(*) from pms_attribute_template
+    </select>
+
+    <!--AttributeTemplateStandardVO getStandardById(Long Id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        select <include refid="StandardQueryFields"></include>
+        from pms_attribute_template
+        where id = #{id}
+    </select>
+
+    <sql id="StandardQueryFields" >
+        id, name, pinyin, keywords, sort
+    </sql>
+
+    <resultMap id="StandardResultMap" type="com.tedu.csmall.product.pojo.vo.AttributeTemplateStandardVO">
+    </resultMap>
+
+    <!--List<AttributeTemplateListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        select <include refid="ListQueryFields"></include>
+        from pms_attribute_template
+        group by id desc
+    </select>
+
+    <resultMap id="ListResultMap" type="com.tedu.csmall.product.pojo.vo.AttributeTemplateListItemVO">
+    </resultMap>
+
+    <sql id="ListQueryFields">
+        id, name, pinyin, keywords, sort
+    </sql>
 </mapper>

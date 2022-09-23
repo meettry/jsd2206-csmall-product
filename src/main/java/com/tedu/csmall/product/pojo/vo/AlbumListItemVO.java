@@ -3,16 +3,15 @@ package com.tedu.csmall.product.pojo.vo;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
- * 相册的标准VO类
- *
+ * 相册的列表项VO类
  * @author Meettry
- * @date 2022/9/23 9:03
+ * @date 2022/9/23 17:52
+ *
  */
 @Data
-public class AlbumStandardVO implements Serializable {
+public class AlbumListItemVO implements Serializable {
 
     /**
      * 记录id
