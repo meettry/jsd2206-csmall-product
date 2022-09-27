@@ -12,5 +12,5 @@ import com.tedu.csmall.product.pojo.dto.AddNewAlbumDTO;
 
 public interface AlbumService {
 
-    void addNew(AddNewAlbumDTO albumDTO) throws NameRepeatException;
+    void addNew(AddNewAlbumDTO albumDTO)  ;
 }

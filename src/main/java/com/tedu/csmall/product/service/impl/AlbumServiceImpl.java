@@ -24,7 +24,7 @@ public class AlbumServiceImpl implements AlbumService {
 
 
     @Override
-    public void addNew(AddNewAlbumDTO albumDTO) throws NameRepeatException {
+    public void addNew(AddNewAlbumDTO albumDTO)   {
         String name = albumDTO.getName();
         int count = mapper.countByName(name);
         if (count != 0) {
@@ -32,11 +32,9 @@ public class AlbumServiceImpl implements AlbumService {
         }
         Album album = new Album();
         BeanUtils.copyProperties(albumDTO,album);
-
         album.setGmtCreate(LocalDateTime.now());
         album.setGmtModified(album.getGmtCreate());
-
-        int result = mapper.insert(album);
+        mapper.insert(album);
 
     }
 }

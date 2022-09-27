@@ -4,7 +4,8 @@ package com.tedu.csmall.product.exception;
  * @author Meettry
  * @date 2022/9/26 16:00
  */
-public class NameRepeatException extends Exception{
+public class NameRepeatException extends RuntimeException{
+
     public NameRepeatException() {
         super();
     }

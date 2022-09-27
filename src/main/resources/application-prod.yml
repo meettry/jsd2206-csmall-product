@@ -3,9 +3,9 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/mall_pms?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: '123456'
 
 #配置SLF4j日志的显示级别
 logging:
   level:
-    com.tedu.csmall=trace
+    com.tedu.csmall: trace
