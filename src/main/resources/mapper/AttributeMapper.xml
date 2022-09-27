@@ -3,14 +3,92 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tedu.csmall.product.mapper.AttributeMapper">
-    <!-- int insert(Album album); -->
+    <!-- int insert(Attribute attribute); -->
     <insert id="insert">
         INSERT INTO pms_Attribute (
             template_id, name, description, type, input_type, value_list, unit, sort, is_allow_customize
         ) VALUES (
             #{templateId},#{name}, #{description},#{type},#{inputType},#{valueList},#{util},#{sort},#{isAllowCustomize}
         )
+    </insert> 
+    <!--int insertBatch(List<Attribute> attributes);-->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        insert into pms_attribute(template_id, name, description, type, input_type, value_list, unit, sort, is_allow_customize) values
+        <foreach collection="list" item="attribute" separator=",">
+            (#{attribute.templeteId},#{attribute.name},#{attribute.description},#{attribute.type}, #{attribute.inputType},#{attribute.valueList}, #{attribute.unit}, #{attribute.sort}, #{attribute.isAllowCustomize})
+        </foreach>
     </insert>
+
+    <!--int deleteById(Integer id);-->
+    <delete id="deleteById">
+        delete
+        from pms_attribute
+        where id = #{id}
+    </delete>
+
+    <!-- int deleteByIds(Long[] ids); -->
+    <delete id="deleteByIds">
+        DELETE FROM pms_attribute WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <!--int updateById(Attribute attribute);-->
+    <update id="updateById">
+        update pms_attribute
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="sort != null">
+                sort=#{sort},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--int count();-->
+    <select id="count" resultType="int">
+        select count(*)
+        from pms_attribute
+    </select>
+
+    <!--AttributeStandardVO getStandardById(Long Id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        select
+        <include refid="StandardQueryFields"></include>
+        from pms_attribute
+        where id=#{id}
+    </select>
+
+    <resultMap id="StandardResultMap"
+               type="com.tedu.csmall.product.pojo.vo.AttributeStandardVO">
+    </resultMap>
+
+    <sql id="StandardQueryFields">
+        id,name,description,sort
+    </sql>
+
+    <!--List<AttributeListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        select
+        <include refid="ListQueryFields"></include>
+        from pms_attribute
+        order by id desc
+    </select>
+
+    <resultMap id="ListResultMap"
+               type="com.tedu.csmall.product.pojo.vo.AttributeListItemVO">
+    </resultMap>
+
+    <sql id="ListQueryFields">
+        id,name,description,sort
+    </sql>
 
 
 </mapper>

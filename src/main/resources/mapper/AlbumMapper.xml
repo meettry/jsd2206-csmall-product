@@ -56,6 +56,13 @@
         from pms_album
     </select>
 
+    <!--int countByName(String name);-->
+    <select id="countByName" resultType="int">
+        select count(*)
+        from pms_album
+        where name=#{name}
+    </select>
+
     <!--AlbumStandardVO getStandardById(Long Id);-->
     <select id="getStandardById" resultMap="StandardResultMap">
         select

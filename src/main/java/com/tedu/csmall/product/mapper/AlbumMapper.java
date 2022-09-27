@@ -62,6 +62,13 @@ public interface AlbumMapper {
     int count();
 
     /**
+     * 查询相册名字是否存在
+     *
+     * @return 返回0:相册名不存在;返回不为0:相册存在
+     */
+    int countByName(String name);
+
+    /**
      * 根据id查询相册标准信息
      *
      * @param id 相册id

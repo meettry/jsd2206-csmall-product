@@ -1,0 +1,12 @@
+#连接数据库的配置
+spring:
+  profiles:
+    active: prod
+
+#配置Mybatis
+mybatis:
+  #配置mapper
+  mapper-locations: classpath:mapper/*.xml
+  #配置包
+  type-aliases-package: com.tedu.csmall.product.pojo.vo
+
