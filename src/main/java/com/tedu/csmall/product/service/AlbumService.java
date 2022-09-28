@@ -1,6 +1,5 @@
 package com.tedu.csmall.product.service;
 
-import com.tedu.csmall.product.exception.NameRepeatException;
 import com.tedu.csmall.product.pojo.dto.AddNewAlbumDTO;
 
 /**
@@ -12,5 +11,15 @@ import com.tedu.csmall.product.pojo.dto.AddNewAlbumDTO;
 
 public interface AlbumService {
 
+    /**
+     * 添加相册
+     * @param albumDTO 相册数据
+     */
     void addNew(AddNewAlbumDTO albumDTO)  ;
+
+    /**
+     * 删除相册
+     * @param id 相册id
+     */
+    void delete(Long id);
 }

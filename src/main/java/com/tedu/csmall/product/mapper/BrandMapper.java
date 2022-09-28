@@ -3,6 +3,7 @@ package com.tedu.csmall.product.mapper;
 import com.tedu.csmall.product.pojo.entity.Brand;
 import com.tedu.csmall.product.pojo.vo.BrandListItemVO;
 import com.tedu.csmall.product.pojo.vo.BrandStandardVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ import java.util.List;
  * @author Meettry
  * @date 2022/9/23 9:51
  */
+
+@Repository
 public interface BrandMapper {
     /**
      * 插入品牌数据

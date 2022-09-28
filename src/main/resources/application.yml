@@ -1,7 +1,13 @@
 #连接数据库的配置
 spring:
+  # profile 配置文件的相关配置
   profiles:
+    #激活哪个profile配置
     active: prod
+  # Jackson框架相关配置
+  jackson:
+    # JSON结果中是否包含为null的属性的默认配置
+    default-property-inclusion: non_null
 
 #配置Mybatis
 mybatis:
@@ -9,4 +15,3 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   #配置包
   type-aliases-package: com.tedu.csmall.product.pojo.vo
-
