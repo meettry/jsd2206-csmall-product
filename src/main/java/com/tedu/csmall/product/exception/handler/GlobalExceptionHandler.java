@@ -4,19 +4,34 @@ import com.tedu.csmall.product.exception.ServiceException;
 import com.tedu.csmall.product.web.JsonResult;
 import com.tedu.csmall.product.web.ServiceCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.List;
 
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
-    @ResponseBody
     public JsonResult handleServiceException(ServiceException e) {
         log.debug("捕获到ServiceException：{}", e.getMessage());
-        return JsonResult.fail(e.getServiceCode(),e.getMessage());
+        return JsonResult.fail(e);
+    }
+
+    @ExceptionHandler
+    public JsonResult BindException(BindException e){
+        log.debug("捕获到ServiceException：{}", e.getMessage());
+        StringBuilder stringBuilder = new StringBuilder();
+        //获取全部错误
+        List<FieldError> fieldErrors = e.getFieldErrors();
+        for (FieldError fieldError : fieldErrors) {
+            String defaultMessage = fieldError.getDefaultMessage();
+            stringBuilder.append(defaultMessage);
+        }
+        return JsonResult.fail(ServiceCode.ERR_BAD_REQUEST,stringBuilder.toString());
     }
 
     @ExceptionHandler

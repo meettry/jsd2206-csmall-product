@@ -57,6 +57,13 @@
         select count(*) from pms_attribute_template
     </select>
 
+    <!--int countByName(String name);-->
+    <select id="countByName" resultType="int">
+        select count(*)
+        from pms_attribute_template
+        where name=#{name}
+    </select>
+
     <!--AttributeTemplateStandardVO getStandardById(Long Id);-->
     <select id="getStandardById" resultMap="StandardResultMap">
         select <include refid="StandardQueryFields"></include>

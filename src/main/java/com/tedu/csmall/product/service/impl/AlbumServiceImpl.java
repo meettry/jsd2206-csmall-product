@@ -4,6 +4,7 @@ import com.tedu.csmall.product.exception.ServiceException;
 import com.tedu.csmall.product.mapper.AlbumMapper;
 import com.tedu.csmall.product.pojo.dto.AddNewAlbumDTO;
 import com.tedu.csmall.product.pojo.entity.Album;
+import com.tedu.csmall.product.pojo.vo.AlbumListItemVO;
 import com.tedu.csmall.product.pojo.vo.AlbumStandardVO;
 import com.tedu.csmall.product.service.AlbumService;
 import com.tedu.csmall.product.web.ServiceCode;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 处理相册数据的业务实现类
@@ -32,7 +34,7 @@ public class AlbumServiceImpl implements AlbumService {
         String name = albumDTO.getName();
         int count = mapper.countByName(name);
         if (count != 0) {
-            throw new ServiceException(ServiceCode.ERR,"添加相册失败，尝试添加的相册名称已经被占用！");
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND,"添加相册失败，尝试添加的相册名称已经被占用！");
         }
         Album album = new Album();
         BeanUtils.copyProperties(albumDTO,album);
@@ -47,12 +49,18 @@ public class AlbumServiceImpl implements AlbumService {
         AlbumStandardVO result = mapper.getStandardById(id);
         if (result == null) {
             log.warn("相册删除失败,数据不存在");
-            throw new ServiceException(ServiceCode.ERR,"相册删除失败,数据不存在");
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND,"相册删除失败,数据不存在");
         }
         log.debug("正在删除相册");
         int row = mapper.deleteById(id);
         if(row!=0){
             log.debug("删除成功");
         }
+    }
+
+    @Override
+    public List<AlbumListItemVO> list() {
+        log.debug("开始处理[查询相册列表]的业务");
+        return mapper.list();
     }
 }

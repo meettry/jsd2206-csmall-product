@@ -1,3 +1,7 @@
+# 服务端口号
+server:
+  port: 9080
+
 #连接数据库的配置
 spring:
   datasource:
@@ -8,4 +12,4 @@ spring:
 #配置SLF4j日志的显示级别
 logging:
   level:
-    com.tedu.csmal: trace
+    com.tedu.csmall: trace

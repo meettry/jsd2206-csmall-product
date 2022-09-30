@@ -94,7 +94,7 @@
         id, name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable
     </sql>
     
-    <resultMap id="StandardResultMap" type="BrandStandardVO">
+    <resultMap id="StandardResultMap" type="com.tedu.csmall.product.pojo.vo.BrandStandardVO">
         <result property="productCount" column="product_count"/>
         <result property="commentCount" column="comment_count"/>
         <result property="positiveCommentCount" column="positive_comment_count"/>
@@ -111,7 +111,7 @@
         id, name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable
     </sql>
 
-    <resultMap id="ListResultMap" type="BrandListItemVO">
+    <resultMap id="ListResultMap" type="com.tedu.csmall.product.pojo.vo.BrandListItemVO">
         <result property="productCount" column="product_count"/>
         <result property="commentCount" column="comment_count"/>
         <result property="positiveCommentCount" column="positive_comment_count"/>

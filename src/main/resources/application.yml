@@ -1,9 +1,10 @@
+
 #连接数据库的配置
 spring:
   # profile 配置文件的相关配置
   profiles:
-    #激活哪个profile配置
-    active: prod
+    #激活哪个profile配置 ---dev:开发版本的yml(自己配置的)
+    active: dev
   # Jackson框架相关配置
   jackson:
     # JSON结果中是否包含为null的属性的默认配置
@@ -13,5 +14,9 @@ spring:
 mybatis:
   #配置mapper
   mapper-locations: classpath:mapper/*.xml
-  #配置包
-  type-aliases-package: com.tedu.csmall.product.pojo.vo
+
+knife4j:
+  enable: true
+
+
+

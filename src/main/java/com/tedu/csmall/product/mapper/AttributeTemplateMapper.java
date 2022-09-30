@@ -41,6 +41,7 @@ public interface AttributeTemplateMapper {
      * @param ids 需要删除的若干个属性模板的id
      * @return 受影响的行数
      */
+
     int deleteByIds(Long[] ids);
 
     /**
@@ -57,6 +58,13 @@ public interface AttributeTemplateMapper {
      * @return 属性模板数据的数量
      */
     int count();
+
+    /**
+     * 查询属性模板名字是否存在
+     *
+     * @return 返回0:属性模板名不存在;返回不为0:属性模板存在
+     */
+    int countByName(String name);
 
     /**
      * 根据id查询属性模板标准信息
