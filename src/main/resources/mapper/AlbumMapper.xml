@@ -17,6 +17,7 @@
         </foreach>
     </insert>
 
+
     <!--    int deleteById(Integer id);-->
     <delete id="deleteById">
         delete

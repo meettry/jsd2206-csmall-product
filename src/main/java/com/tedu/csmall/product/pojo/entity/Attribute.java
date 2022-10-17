@@ -2,6 +2,7 @@ package com.tedu.csmall.product.pojo.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
  * @date 2022/9/22 16:07
  */
 @Data
-public class Attribute {
+public class Attribute  implements Serializable {
     /**
      * 记录id
      */

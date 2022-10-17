@@ -7,8 +7,8 @@ package com.tedu.csmall.product.web;
 public enum ServiceCode {
     OK(200),
     ERR_NOT_FOUND(404),
-    ERR_BAD_REQUEST(400);
-
+    ERR_BAD_REQUEST(400),
+    ERR(2);
 
 
     private Integer value;

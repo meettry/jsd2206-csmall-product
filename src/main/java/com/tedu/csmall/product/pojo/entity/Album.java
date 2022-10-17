@@ -2,6 +2,7 @@ package com.tedu.csmall.product.pojo.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
  * @date  2022/9/22 11:26
  */
 @Data
-public class Album {
+public class Album  implements Serializable {
     /**
      * 记录id
      */
@@ -40,4 +41,6 @@ public class Album {
      * 数据最后修改时间
      */
     private LocalDateTime gmtModified;
+
+
 }

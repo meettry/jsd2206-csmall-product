@@ -36,7 +36,7 @@ public class AlbumController {
     // http://localhost:8080/albums/add-new
     @ApiOperation("添加相册")
     @ApiOperationSupport(order = 100)
-    @RequestMapping("/add-new")//请求路径
+    @PostMapping("/add-new")//请求路径
     public JsonResult<Void> addNew(@Validated AddNewAlbumDTO albumDTO) {
         albumService.addNew(albumDTO);
         return JsonResult.ok();
@@ -45,17 +45,17 @@ public class AlbumController {
     // http://localhost:8080/albums/9527/delete
     @ApiOperation("删除相册")
     @ApiOperationSupport(order = 200)
-    @RequestMapping("/{id:[0-9]+}/delete")
+    @GetMapping("/{id:[0-9]+}/delete")
     public JsonResult<Void> delete(@PathVariable Long id) {
         log.debug("开始处理【删除相册】的请求，参数：{}", id);
         albumService.delete(id);
         return JsonResult.ok();
     }
-
+/*
     @ApiOperation("删除相册【测试1】")
     @ApiOperationSupport(order = 900)
     @Deprecated
-    @RequestMapping("/{id:[a-z]+}/delete")
+    @GetMapping("/{id:[a-z]+}/delete")
     public JsonResult<Void> delete(@PathVariable String id) {
         log.debug("【测试】开始处理【删除相册】的请求，参数（纯字母）：{}", id);
         return JsonResult.ok();
@@ -70,6 +70,8 @@ public class AlbumController {
         log.debug("【测试】开始处理【删除相册】的请求，这只是一个测试，没有实质功能！");
         return JsonResult.ok();
     }
+
+ */
 
     @ApiOperation("查询相册列表")
     @ApiOperationSupport(order = 420)
