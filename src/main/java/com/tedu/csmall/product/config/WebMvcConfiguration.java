@@ -1,5 +1,6 @@
 package com.tedu.csmall.product.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,10 +10,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author Meettry
  * @date 2022/9/28 16:23
  */
+@Slf4j
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
     public WebMvcConfiguration() {
-        System.out.println("创建配置类WebMvcConfiguration");
+        log.debug("创建配置类WebMvcConfiguration");
     }
 
     @Override

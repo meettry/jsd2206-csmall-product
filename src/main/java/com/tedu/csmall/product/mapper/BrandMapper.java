@@ -25,10 +25,10 @@ public interface BrandMapper {
     /**
      * 批量插入品牌数据
      *
-     * @param brands 若干个品牌数据的集合
+     * @param brandList 若干个品牌数据的集合
      * @return 受影响的行数
      */
-    int insertBatch(List<Brand> brands);
+    int insertBatch(List<Brand> brandList);
 
     /**
      * 根据id删除品牌数据
@@ -49,10 +49,10 @@ public interface BrandMapper {
     /**
      * 更新品牌数据
      *
-     * @param Brand 封装了品牌的id和需要更新的新数据的对象
+     * @param brand 封装了品牌的id和需要更新的新数据的对象
      * @return 受影响的行数
      */
-    int updateById(Brand Brand);
+    int updateById(Brand brand);
 
     /**
      * 统计品牌数据的数量
@@ -60,13 +60,22 @@ public interface BrandMapper {
      * @return 品牌数据的数量
      */
     int count();
-    
+
+    /**
+     * 根据品牌名称统计数据的数量
+     *
+     * @param name 品牌名称
+     * @return 匹配名称的品牌数据的数量
+     */
+    int countByName(String name);
+
     /**
      * 根据id查询品牌标准信息
-     * @param Id 品牌id
-     * @return 匹配的品牌的标准信息,如果没有匹配的数据,则返回null
+     *
+     * @param id 品牌id
+     * @return 匹配的品牌的标准信息，如果没有匹配的数据，则返回null
      */
-    BrandStandardVO getStandardById(Long Id);
+    BrandStandardVO getStandardById(Long id);
 
     /**
      * 查询品牌列表

@@ -29,7 +29,7 @@ public class AlbumController {
     private AlbumService albumService;
 
     public AlbumController() {
-        System.out.println("创建控制器类对象:AlbumController");
+        log.debug("创建控制器类对象:AlbumController");
     }
 
 

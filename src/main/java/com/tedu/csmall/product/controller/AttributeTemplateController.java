@@ -20,7 +20,7 @@ public class AttributeTemplateController {
     private AttributeTemplateService attributeTemplateService;
 
     public AttributeTemplateController() {
-        System.out.println("创建控制器类对象:AlbumController");
+        log.debug("创建控制器类对象:AttributeTemplateController");
     }
 
 

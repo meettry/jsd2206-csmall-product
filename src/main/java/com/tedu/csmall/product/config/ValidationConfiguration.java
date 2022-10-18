@@ -15,7 +15,7 @@ import javax.validation.Validation;
 public class ValidationConfiguration {
 
     public ValidationConfiguration() {
-        System.out.println("创建配置类：ValidationConfiguration");
+        log.debug("创建配置类：ValidationConfiguration");
     }
 
     @Bean

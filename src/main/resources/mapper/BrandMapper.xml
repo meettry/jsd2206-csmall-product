@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.tedu.csmall.product.mapper.BrandMapper">
+
     <!-- int insert(Brand brand); -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO pms_brand (name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable)
-        VALUES (#{name},#{pinyin}, #{logo}, #{description}, #{keywords}, #{sort}, #{sales}, #{productCount}, #{commentCount}, #{positiveCommentCount}, #{enable})
+        INSERT INTO pms_brand (
+            name, pinyin, logo, description, keywords,
+            sort, sales, product_count, comment_count, positive_comment_count,
+            enable
+        ) VALUES (
+                     #{name}, #{pinyin}, #{logo}, #{description}, #{keywords},
+                     #{sort}, #{sales}, #{productCount}, #{commentCount}, #{positiveCommentCount},
+                     #{enable}
+                 )
     </insert>
 
-    <!--int insertBatch(List<Brand> brands);-->
+    <!-- int insertBatch(List<Brand> brandList); -->
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
-        insert into pms_brand( name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable) values
+        INSERT INTO pms_brand (
+        name, pinyin, logo, description, keywords,
+        sort, sales, product_count, comment_count, positive_comment_count,
+        enable
+        ) VALUES
         <foreach collection="list" item="brand" separator=",">
-            (#{brand.name},#{brand.pinyin}, #{brand.logo}, #{brand.description}, #{brand.keywords}, #{brand.sort}, #{brand.sales}, #{brand.productCount}, #{brand.commentCount}, #{brand.positiveCommentCount}, #{brand.enable})
+            (
+            #{brand.name}, #{brand.pinyin}, #{brand.logo}, #{brand.description}, #{brand.keywords},
+            #{brand.sort}, #{brand.sales}, #{brand.productCount}, #{brand.commentCount}, #{brand.positiveCommentCount},
+            #{brand.enable}
+            )
         </foreach>
     </insert>
 
-    <!--    int deleteById(Integer id);-->
+    <!-- int deleteById(Long id); -->
     <delete id="deleteById">
-        delete
-        from pms_brand
-        where id = #{id}
+        DELETE FROM pms_brand WHERE id=#{id}
     </delete>
 
-    <!-- int deleteByIds(Long[] ids); -->
+    <!-- int deleteByIds(List<Long> ids); -->
     <delete id="deleteByIds">
         DELETE FROM pms_brand WHERE id IN (
         <foreach collection="array" item="id" separator=",">
@@ -33,18 +46,13 @@
         )
     </delete>
 
-    <!--int updateById(Brand brand);-->
+    <!-- int updateById(Brand brand); -->
     <update id="updateById">
-        update pms_brand
+        UPDATE
+        pms_brand
         <set>
             <if test="name != null">
                 name=#{name},
-            </if>
-            <if test="description != null">
-                description=#{description},
-            </if>
-            <if test="sort != null">
-                sort=#{sort},
             </if>
             <if test="pinyin != null">
                 pinyin=#{pinyin},
@@ -57,6 +65,9 @@
             </if>
             <if test="keywords != null">
                 keywords=#{keywords},
+            </if>
+            <if test="sort != null">
+                sort=#{sort},
             </if>
             <if test="sales != null">
                 sales=#{sales},
@@ -71,50 +82,87 @@
                 positive_comment_count=#{positiveCommentCount},
             </if>
             <if test="enable != null">
-                enable=#{enable}
+                enable=#{enable},
             </if>
         </set>
-        where id=#{id}
+        WHERE id=#{id}
     </update>
 
-    <!--int count();-->
+    <!-- int count(); -->
     <select id="count" resultType="int">
-        select count(*)
-        from pms_brand
+        SELECT count(*) FROM pms_brand
     </select>
 
-    <!--BrandStandardVO getStandardById(Long Id);-->
-    <select id="getStandardById" resultMap="StandardResultMap">
-        select
-        <include refid="StandardQueryFields"></include>
-        from pms_brand where id=#{id}
+    <!-- int countByName(String name); -->
+    <select id="countByName" resultType="int">
+        SELECT count(*) FROM pms_brand WHERE name=#{name}
     </select>
-    
+
+    <!-- BrandStandardVO getStandardById(Long id); -->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        SELECT
+        <include refid="StandardQueryFields"/>
+        FROM
+        pms_brand
+        WHERE
+        id=#{id}
+    </select>
+
+    <!-- List<BrandListItemVO> list(); -->
+    <select id="list" resultMap="ListResultMap">
+        SELECT
+        <include refid="ListQueryFields"/>
+        FROM
+        pms_brand
+        ORDER BY
+        sort DESC, id DESC
+    </select>
+
     <sql id="StandardQueryFields">
-        id, name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable
+        <if test="true">
+            id, name, pinyin, logo, description,
+            keywords, sort, sales, product_count, comment_count,
+            positive_comment_count, enable
+        </if>
     </sql>
-    
-    <resultMap id="StandardResultMap" type="com.tedu.csmall.product.pojo.vo.BrandStandardVO">
-        <result property="productCount" column="product_count"/>
-        <result property="commentCount" column="comment_count"/>
-        <result property="positiveCommentCount" column="positive_comment_count"/>
+
+    <resultMap id="StandardResultMap"
+               type="com.tedu.csmall.product.pojo.vo.BrandStandardVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pinyin" property="pinyin"/>
+        <result column="logo" property="logo"/>
+        <result column="description" property="description"/>
+        <result column="keywords" property="keywords"/>
+        <result column="sort" property="sort"/>
+        <result column="sales" property="sales"/>
+        <result column="product_count" property="productCount"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="positive_comment_count" property="positiveCommentCount"/>
+        <result column="enable" property="enable"/>
     </resultMap>
 
-    <!--List<BrandListItemVO> list();-->
-    <select id="list" resultMap="ListResultMap">
-        select <include refid="ListQueryFields"></include>
-        from pms_brand
-        group by id desc
-    </select>
-
     <sql id="ListQueryFields">
-        id, name, pinyin, logo, description, keywords, sort, sales, product_count, comment_count, positive_comment_count, enable
+        <if test="true">
+            id, name, pinyin, logo, description,
+            keywords, sort, sales, product_count, comment_count,
+            positive_comment_count, enable
+        </if>
     </sql>
 
-    <resultMap id="ListResultMap" type="com.tedu.csmall.product.pojo.vo.BrandListItemVO">
-        <result property="productCount" column="product_count"/>
-        <result property="commentCount" column="comment_count"/>
-        <result property="positiveCommentCount" column="positive_comment_count"/>
+    <resultMap id="ListResultMap"
+               type="com.tedu.csmall.product.pojo.vo.BrandListItemVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pinyin" property="pinyin"/>
+        <result column="logo" property="logo"/>
+        <result column="description" property="description"/>
+        <result column="keywords" property="keywords"/>
+        <result column="sort" property="sort"/>
+        <result column="sales" property="sales"/>
+        <result column="product_count" property="productCount"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="positive_comment_count" property="positiveCommentCount"/>
     </resultMap>
 
 </mapper>
