@@ -7,6 +7,7 @@ import com.tedu.csmall.product.pojo.dto.AddNewBrandDTO;
 import com.tedu.csmall.product.pojo.entity.Brand;
 import com.tedu.csmall.product.pojo.vo.BrandListItemVO;
 import com.tedu.csmall.product.pojo.vo.BrandStandardVO;
+import com.tedu.csmall.product.repo.BrandRedisRepository;
 import com.tedu.csmall.product.service.BrandService;
 import com.tedu.csmall.product.web.ServiceCode;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,9 @@ import java.util.List;
 @Slf4j
 @Service
 public class BrandServiceImpl implements BrandService {
+
+    @Autowired
+    private BrandRedisRepository repository;
 
     @Autowired
     private BrandMapper brandMapper;
@@ -93,20 +97,22 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public BrandStandardVO getStandardById(Long id) {
         log.debug("开始处理【根据id查询品牌详情】的业务，参数：{}", id);
-        BrandStandardVO brand = brandMapper.getStandardById(id);
-        if (brand == null) {
+//        BrandStandardVO brand = brandMapper.getStandardById(id);
+        BrandStandardVO brandStandardVO = repository.get(id);
+        if (brandStandardVO == null) {
             String message = "获取品牌详情失败，尝试访问的数据不存在！";
             log.warn(message);
             throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
         }
-        return brand;
+        return brandStandardVO;
     }
 
 
     @Override
     public List<BrandListItemVO> list() {
         log.debug("开始处理【查询品牌列表】的业务");
-        return brandMapper.list();
+//        return brandMapper.list();
+        return repository.list();
     }
 
 }

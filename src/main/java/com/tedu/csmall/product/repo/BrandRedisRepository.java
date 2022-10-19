@@ -13,6 +13,21 @@ import java.util.List;
 public interface BrandRedisRepository {
 
     /**
+     * 品牌相关数据在Redis中的前缀
+     */
+    String BRAND_KEY_PREFIX = "brand:";
+    /**
+     * 品牌数据项在Redis中的Key前缀
+     */
+    String BRAND_ITEM_KEY_PREFIX = BRAND_KEY_PREFIX + "item:";
+    /**
+     * 品牌列表在Redis中的Key
+     */
+    String BRAND_LIST_KEY = BRAND_KEY_PREFIX + "list";
+
+    String BRAND_ALL_KEYS_KEY = "brand:all-keys";
+
+    /**
      * 将数据写入Redis
      * @param brandStandardVO 品牌数据
      */
@@ -45,5 +60,10 @@ public interface BrandRedisRepository {
      */
     List<BrandListItemVO> list(long start,long end);
 
+    /**
+     * 删除全部品牌数据,包括各品牌详情数据和品牌列表等
+     * @return 返回成功删除的数量
+     */
+    Long deleteAll();
 
 }

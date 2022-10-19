@@ -7,19 +7,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Repository
 public class BrandRedisRepositoryImpl implements BrandRedisRepository {
 
-    public final static String BRAND_ITEM_KEY_PREFIX = "brand:item:";
-
-    public final static String BRAND_LIST_KEY = "brand:list";
 
     @Autowired
     RedisTemplate<String, Serializable> redisTemplate;
@@ -36,10 +36,27 @@ public class BrandRedisRepositoryImpl implements BrandRedisRepository {
         return BRAND_LIST_KEY;
     }
 
+    private String getAllKeysKey() {
+        return BRAND_ALL_KEYS_KEY;
+    }
+
+    private Set<String> getAllKeys(){
+        Set<Serializable> members = redisTemplate.opsForSet().members(getAllKeysKey());
+        Set<String> keys = new HashSet<>();
+
+        for (Serializable member : members) {
+            if(member instanceof String){
+                keys.add((String) member);
+            }
+        }
+        return keys;
+    }
+
     @Override
     public void save(BrandStandardVO brandStandardVO) {
         log.debug("准备向Redis中写入brand数据,参数:{}", brandStandardVO);
         String key = getItemKey(brandStandardVO.getId());
+        redisTemplate.opsForSet().add(getAllKeysKey(), key);
         redisTemplate.opsForValue().set(key, brandStandardVO);
     }
 
@@ -63,6 +80,7 @@ public class BrandRedisRepositoryImpl implements BrandRedisRepository {
     public void save(List<BrandListItemVO> brands) {
         String key = getListKey();
         ListOperations<String, Serializable> ops = redisTemplate.opsForList();
+        redisTemplate.opsForSet().add(getAllKeysKey(), key);
         for (BrandListItemVO brand : brands) {
             ops.rightPush(key,brand);
         }
@@ -90,5 +108,11 @@ public class BrandRedisRepositoryImpl implements BrandRedisRepository {
 
         }
         return brands;
+    }
+
+    @Override
+    public Long deleteAll() {
+        Set<String> allKeys = getAllKeys();
+        return redisTemplate.delete(allKeys);
     }
 }
