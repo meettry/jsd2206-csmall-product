@@ -33,6 +33,9 @@ public class BrandServiceImpl implements BrandService {
     @Autowired
     private BrandMapper brandMapper;
 
+    @Autowired
+    BrandRedisRepository brandRedisRepository;
+
 
     public BrandServiceImpl() {
         log.info("创建业务对象：BrandServiceImpl");
@@ -115,4 +118,21 @@ public class BrandServiceImpl implements BrandService {
         return repository.list();
     }
 
+    @Override
+    public void rebuildCache() {
+        log.debug("删除Redis中原有的品牌数据");
+        brandRedisRepository.deleteAll();
+
+        log.debug("从MySQL中读取品牌列表");
+        List<BrandListItemVO> brands = brandMapper.list();
+
+        log.debug("将品牌列表写入到Redis");
+        brandRedisRepository.save(brands);
+
+        log.debug("逐一根据id从MySQL中读取品牌详情，并写入到Redis");
+        for (BrandListItemVO item : brands) {
+            BrandStandardVO brand = brandMapper.getStandardById(item.getId());
+            brandRedisRepository.save(brand);
+        }
+    }
 }

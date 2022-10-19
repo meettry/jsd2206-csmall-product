@@ -39,4 +39,9 @@ public interface BrandService {
 
     BrandStandardVO getStandardById(Long id);
 
+    /**
+     * 重建品牌数据缓存
+     */
+    void rebuildCache();
+
 }

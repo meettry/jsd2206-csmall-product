@@ -4,6 +4,7 @@ import com.tedu.csmall.product.mapper.BrandMapper;
 import com.tedu.csmall.product.pojo.vo.BrandListItemVO;
 import com.tedu.csmall.product.pojo.vo.BrandStandardVO;
 import com.tedu.csmall.product.repo.BrandRedisRepository;
+import com.tedu.csmall.product.service.BrandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,9 +23,7 @@ public class CacheSchedule {
     }
 
     @Autowired
-    BrandRedisRepository brandRedisRepository;
-    @Autowired
-    BrandMapper brandMapper;
+    BrandService brandService;
 
     // @Scheduled注解的属性配置:
     // fixRate属性:执行计划任务方法的时间间隔(毫秒)
@@ -35,22 +34,8 @@ public class CacheSchedule {
     // >> 以上各值，可以使用“x/x”格式的值，例如，分钟对应的值使用“1/5”，则表示当分钟值为1的那一刻开始执行，往后每间隔5分钟执行一次
     @Scheduled(fixedRate = 5 * 60 * 1000)
     public void a() {
-        log.debug("开始处理缓存的计划任务");
-
-        log.debug("删除缓存中原有的品牌数据");
-        Long result = brandRedisRepository.deleteAll();
-        log.debug("共删除{}条数据", result);
-
-        log.debug("从mapper中读取品牌列表");
-        List<BrandListItemVO> list = brandMapper.list();
-
-        log.debug("将品牌列表写入到Redis");
-        brandRedisRepository.save(list);
-
-        log.debug("逐一根据id从MySQL中读取品牌详情,并写入到Redis");
-        for (BrandListItemVO item : list) {
-            BrandStandardVO brand = brandMapper.getStandardById(item.getId());
-            brandRedisRepository.save(brand);
-        }
+        log.debug("开始执行处理缓存的计划任务……");
+        brandService.rebuildCache();
+        log.debug("处理缓存的计划任务执行完成！");
     }
 }
